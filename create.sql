@@ -178,7 +178,7 @@ COPY Flight (
 	arrival_airport,
 	departure_airport
 )
-FROM 'flights.csv'
+FROM '/home/csmajs/rluon003/cs166_project/code/data/flights.csv'
 WITH DELIMITER ',';
 
 COPY Reservation (
@@ -187,7 +187,7 @@ COPY Reservation (
 	fid,
 	status
 )
-FROM 'reservation.csv'
+FROM 'home/csmajs/rluon003/cs166_project/code/data/reservation.csv'
 WITH DELIMITER ',';
 
 COPY FlightInfo (
@@ -196,7 +196,7 @@ COPY FlightInfo (
 	pilot_id,
 	plane_id
 )
-FROM 'flightinfo.csv'
+FROM '/home/csmajs/rluon003/cs166_project/code/data/flightinfo.csv'
 WITH DELIMITER ',';
 
 COPY Repairs (
@@ -207,7 +207,7 @@ COPY Repairs (
 	plane_id,
 	technician_id
 )
-FROM 'repairs.csv'
+FROM '/home/csmajs/rluon003/cs166_project/code/data/repairs.csv'
 WITH DELIMITER ',';
 
 COPY Schedule (
@@ -216,5 +216,5 @@ COPY Schedule (
 	departure_time,
 	arrival_time
 )
-FROM 'schedule.csv'
+FROM '/home/csmajs/rluon003/cs166_project/code/data/schedule.csv'
 WITH DELIMITER ',';
