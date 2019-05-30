@@ -318,10 +318,22 @@ public class DBproject{
 
 		query = "INSERT INTO Plane (id, make, model, age, seats) VALUES (' "  + planeID + "' ),"  + " (' " + planeMake + "' )," + " (' " + planeModel + "' )," + " (' " + planeAge + "' )," + " (' " + planeSeats + "' );" ;
 
-		System.out.println(esql.executeUpdate(query));
+		esql.executeUpdate(query);
 	}
 
 	public static void AddPilot(DBproject esql) {//2
+		String query;
+		System.out.println("Please input an integer for the pilot's ID: ");
+		int pilotID = in.readLine();
+
+		System.out.println("Please input the pilot's full name: ");
+		string fullName = in.readLine();
+
+		System.out.println("Please input the pilot's nationality: ");
+		string national = in.readLine();
+
+		query = "INSERT INTO Pliot (id, fullname, nationality) VALUES (' "  + pilotID + "' ),"  + " (' " + fullName + "' )," + " (' " + national + "' );" ;
+		esql.executeUpdate(query);
 	}
 
 	public static void AddFlight(DBproject esql) {//3
@@ -329,6 +341,14 @@ public class DBproject{
 	}
 
 	public static void AddTechnician(DBproject esql) {//4
+		String query;
+		System.out.println("Please input an integer for the technician's ID: ");
+		int techID = in.readLine();
+
+		System.out.println("Please input the technician's full name: ");
+		string fullName = in.readLine();
+		query = "INSERT INTO Pliot (id, fullname, nationality) VALUES (' "  + techID + "' ),"  + " (' " + fullName + "' );" ;
+		esql.executeUpdate(query);
 	}
 
 	public static void BookFlight(DBproject esql) {//5
