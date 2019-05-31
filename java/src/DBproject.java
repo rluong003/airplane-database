@@ -347,7 +347,7 @@ public class DBproject{
 
 		System.out.println("Please input the technician's full name: ");
 		string fullName = in.readLine();
-		query = "INSERT INTO Pliot (id, fullname, nationality) VALUES (' "  + techID + "' ),"  + " (' " + fullName + "' );" ;
+		query = "INSERT INTO Technician (id, fullname, nationality) VALUES (' "  + techID + "' ),"  + " (' " + fullName + "' );" ;
 		esql.executeUpdate(query);
 	}
 
@@ -368,6 +368,12 @@ public class DBproject{
 	}
 	
 	public static void FindPassengersCountWithStatus(DBproject esql) {//9
+		String query;
+		System.out.println("Please input the passenger status code (W, C, or R): ");
+		string inputs = in.readLine();
+		query = "SELECT COUNT(R.status) FROM Reservation R, Customer C WHERE (R.cid = C.cid AND R.status = " + inputs + " \" );";
+		esql.executeQueryAndPrintResult(query);
+
 		// Find how many passengers there are with a status (i.e. W,C,R) and list that number.
 	}
 }
