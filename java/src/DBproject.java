@@ -301,9 +301,6 @@ public class DBproject{
 
 	public static void AddPlane(DBproject esql) {//1
 		String query;
-		System.out.println("Please input an integer for the plane ID: ");
-		int planeID = in.readLine();
-
 		System.out.println("Please input a plane make no longer than 32 characters: ");
 		string planeMake = in.readLine();
 
@@ -316,7 +313,7 @@ public class DBproject{
 		System.out.println("Please input an integer for the number of the plane's seats: ");
 		int planeSeats = in.readLine();
 
-		query = "INSERT INTO Plane (id, make, model, age, seats) VALUES (' "  + planeID + "' ),"  + " (' " + planeMake + "' )," + " (' " + planeModel + "' )," + " (' " + planeAge + "' )," + " (' " + planeSeats + "' );" ;
+		query = "INSERT INTO Plane (id, make, model, age, seats) VALUES (' " + planeMake + "' )," + " (' " + planeModel + "' ), " + " (' " + planeAge + " ' ), " + " (' " + planeSeats + " ' );";
 
 		esql.executeUpdate(query);
 	}

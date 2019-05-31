@@ -140,7 +140,7 @@ COPY Customer (
 	phone,
 	zipcode
 )
-FROM 'customer.csv'
+FROM '/home/csmajs/rluon003/cs166_project/code/data/customer.csv'
 WITH DELIMITER ',';
 
 COPY Pilot (
@@ -148,7 +148,7 @@ COPY Pilot (
 	fullname,
 	nationality
 )
-FROM 'pilots.csv'
+FROM '/home/csmajs/rluon003/cs166_project/code/data/pilots.csv'
 WITH DELIMITER ',';
 
 COPY Plane (
@@ -158,14 +158,14 @@ COPY Plane (
 	age,
 	seats
 )
-FROM 'planes.csv'
+FROM '/home/csmajs/rluon003/cs166_project/code/data/planes.csv'
 WITH DELIMITER ',';
 
 COPY Technician (
 	id,
 	full_name
 )
-FROM 'technician.csv'
+FROM '/home/csmajs/rluon003/cs166_project/code/data/technician.csv'
 WITH DELIMITER ',';
 
 COPY Flight (
@@ -187,7 +187,7 @@ COPY Reservation (
 	fid,
 	status
 )
-FROM 'home/csmajs/rluon003/cs166_project/code/data/reservation.csv'
+FROM '/home/csmajs/rluon003/cs166_project/code/data/reservation.csv'
 WITH DELIMITER ',';
 
 COPY FlightInfo (
