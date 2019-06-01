@@ -320,8 +320,6 @@ public class DBproject{
 
 	public static void AddPilot(DBproject esql) {//2
 		String query;
-		System.out.println("Please input an integer for the pilot's ID: ");
-		int pilotID = in.readLine();
 
 		System.out.println("Please input the pilot's full name: ");
 		string fullName = in.readLine();
@@ -329,7 +327,7 @@ public class DBproject{
 		System.out.println("Please input the pilot's nationality: ");
 		string national = in.readLine();
 
-		query = "INSERT INTO Pliot (id, fullname, nationality) VALUES (' "  + pilotID + "' ),"  + " (' " + fullName + "' )," + " (' " + national + "' );" ;
+		query = "INSERT INTO Pliot (id, fullname, nationality) VALUES (' " + fullName + " '),"
 		esql.executeUpdate(query);
 	}
 
@@ -339,9 +337,7 @@ public class DBproject{
 
 	public static void AddTechnician(DBproject esql) {//4
 		String query;
-		System.out.println("Please input an integer for the technician's ID: ");
-		int techID = in.readLine();
-
+		
 		System.out.println("Please input the technician's full name: ");
 		string fullName = in.readLine();
 		query = "INSERT INTO Technician (id, fullname, nationality) VALUES (' "  + techID + "' ),"  + " (' " + fullName + "' );" ;
