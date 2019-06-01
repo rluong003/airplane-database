@@ -379,20 +379,20 @@ public class DBproject{
 				
 			int reservationNum = esql.getCurrSeqVal("reservation");
 			//Get the number of seats sold
-			query = String.format("SELECT F.num_sold FROM Flight F WHERE F.flight_num = %d LIMIT 1", flightNum);
+			query = String.format("SELECT F.num_sold FROM Flight F WHERE F.fnum = %d LIMIT 1 ", flightNum);
 			int sold_seats  = Integer.parseInt(esql.executeQueryAndReturnResult(query).get(0).get(0));
 			//Get the total number of seats on plane
-			query = String.format("Select P.num_seats FROM Plane P WHERE P.ID = Flightinfo.plane_ID AND F.flight_num = %d LIMIT 1", flightNum);
+			query = String.format("Select P.seats FROM Plane P, Flightinfo FI  WHERE P.id = FI.plane_id AND FI.fnum = %d LIMIT 1", flightNum);
 			int total_seats = Integer.parseInt(esql.executeQueryAndReturnResult(query).get(0).get(0));
 	
 			if(total_seats - sold_seats > 0)
 			{
-				query = "INSERT INTO Reservation(Rnum, customer_ID, flight_ID, status) VALUES (' " + reservationNum + "')," + "(' " + customerID + "')" + "('" + flightNum + "')" + "('R');";
+				query = "INSERT INTO Reservation(rnum, cid, fid, status) VALUES (' " + reservationNum + "')," + "(' " + customerID + "')" + "('" + flightNum + "')" + "('R');";
 				System.out.println("Successfully regirstered");
 			}
 			else
 			{
-				query = "INSERT INTO Reservation(Rnum, customer_ID, flight_ID, status) VALUES (' " + reservationNum + "')," + "(' " + customerID + "')" + "('" + flightNum + "')" + "('W');";
+				query = "INSERT INTO Reservation(rnum, cid, fid, status) VALUES (' " + reservationNum + "')," + "(' " + customerID + "')" + "('" + flightNum + "')" + "('W');";
 			}
 			esql.executeUpdate(query);
 		}
@@ -404,14 +404,49 @@ public class DBproject{
 
 	public static void ListNumberOfAvailableSeats(DBproject esql) {//6
 		// For flight number and date, find the number of availalbe seats (i.e. total plane capacity minus booked seats )
+		try{
+			String query;
+			System.out.println("Please input a flight number: ");
+			int flight_number = Integer.parseInt(in.readline());
+			
+			System.out.println("Please input a date (yyyy-mm-dd): ");
+			String date_input = in.readLine();
+
+			
+			query = String.format("SELECT F.num_sold FROM Flight F WHERE F.flight_num = %d LIMIT 1", flight_number);
+			int sold_seats = Integer.parseInt(esql.executeQueryAndReturnResult(query).get(0).get(0));
+			
+			query = String.format("SELECT P.num_seats FROM Plane P, Flightinfo FI  WHERE P.id = FI.plane_id AND FI.flight_num = %d", flight_number);
+			int numberOfSeats = Integer.parseInt(esql.executeQueryAndReturnResult(query).get(0).get(0));
+			
+			String output = String.format("There are %d seats on flight %d\n", sold_seats - numberOfSeats, flight_number);
+			System.out.println(output);
+		}
+		catch(Exception e){
+			System.err.println(e.getMessage());
+		}
 	}
 
 	public static void ListsTotalNumberOfRepairsPerPlane(DBproject esql) {//7
 		// Count number of repairs per planes and list them in descending order
+		try{
+			String query = "SELECT P.id, COUNT(R.rid) FROM Plane P, Repairs R WHERE P.id = R.plane_id GROUP BY P.id ORDER BY COUNT DESC";
+			esql.ExecuteQueryAndPrintResult(query);
+		}
+		catch(Exception e){
+			System.err.println(e.getMessage());
+		}
 	}
 
 	public static void ListTotalNumberOfRepairsPerYear(DBproject esql) {//8
 		// Count repairs per year and list them in ascending order
+		try{
+			query = "SELECT EXTRACT(YEAR FROM R.repair_date) as \"repairYear\", COUNT(R.rid) FROM Repairs R GROUP BY repairYear ORDER BY COUNT ASC";
+			esql.ExecuteQueryAndPrintResult(query);
+		}
+		catch(Exception e){
+			System.err.println(e.getMessage());
+		}
 	}
 	
 	public static void FindPassengersCountWithStatus(DBproject esql) {//9
