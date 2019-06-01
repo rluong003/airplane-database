@@ -332,6 +332,7 @@ public class DBproject{
 			System.out.println("Please input the pilot's full name: ");
 			String fullName = in.readLine();
 
+
 			System.out.println("Please input the pilot's nationality: ");
 			String national = in.readLine();
 
@@ -341,6 +342,7 @@ public class DBproject{
 		catch(Exception e){
 			System.err.println(e.getMessage());
 		}
+
 	}
 
 	public static void AddFlight(DBproject esql) {//3
@@ -350,12 +352,9 @@ public class DBproject{
 	public static void AddTechnician(DBproject esql) {//4
 		try{
 		String query;
+
 		System.out.println("Please input an integer for the technician's ID: ");
 		int techID = Integer.parseInt(in.readLine());
-
-		System.out.println("Please input the technician's full name: ");
-		String fullName = in.readLine();
-		query = "INSERT INTO Technician (id, fullname, nationality) VALUES (' "  + techID + "' ),"  + " (' " + fullName + "' );" ;
 		System.out.println("Please input the technician's full name: ");
 		String full_Name = in.readLine(); //fullName is defined in addPilot, so full_Name used here
 		query = "INSERT INTO Technician (id, fullname, nationality) VALUES (' "  + techID + "' ),"  + " (' " + full_Name + "' );" ;
