@@ -300,35 +300,49 @@ public class DBproject{
 	}//end readChoice
 
 	public static void AddPlane(DBproject esql) {//1
-		String query;
-		System.out.println("Please input a plane make no longer than 32 characters: ");
-		string planeMake = in.readLine();
+		try{
+			String query;
+			System.out.println("Please input a plane make no longer than 32 characters: ");
+			String planeMake = in.readLine();
+	
+			System.out.println("Please input a plane model no longer than 64 characters: ");
+			String planeModel = in.readLine();
 
-		System.out.println("Please input a plane model no longer than 64 characters: ");
-		string planeModel = in.readLine();
+			System.out.println("Please input an integer for the plane's age: ");
+			int planeAge = Integer.parseInt(in.readLine());
 
-		System.out.println("Please input an integer for the plane's age: ");
-		int planeAge = in.readLine();
+			System.out.println("Please input an integer for the number of the plane's seats: ");
+			int planeSeats = Integer.parseInt(in.readLine());
 
-		System.out.println("Please input an integer for the number of the plane's seats: ");
-		int planeSeats = in.readLine();
+			query = "INSERT INTO Plane (id, make, model, age, seats) VALUES (' " + planeMake + "' )," + " (' " + planeModel + "' ), " + " (' " + planeAge + " ' ), " + " (' " + planeSeats + " ' );";
 
-		query = "INSERT INTO Plane (id, make, model, age, seats) VALUES (' " + planeMake + "' )," + " (' " + planeModel + "' ), " + " (' " + planeAge + " ' ), " + " (' " + planeSeats + " ' );";
-
-		esql.executeUpdate(query);
+			esql.executeUpdate(query);
+		}
+		catch(Exception e){
+			System.err.println(e.getMessage());
+		}
 	}
 
 	public static void AddPilot(DBproject esql) {//2
-		String query;
+		try{
+			String query;
+			System.out.println("Please input an integer for the pilot's ID: ");
+			int pilotID = Integer.parseInt(in.readLine());
+	
+			System.out.println("Please input the pilot's full name: ");
+			String fullName = in.readLine();
 
-		System.out.println("Please input the pilot's full name: ");
-		string fullName = in.readLine();
 
-		System.out.println("Please input the pilot's nationality: ");
-		string national = in.readLine();
+			System.out.println("Please input the pilot's nationality: ");
+			String national = in.readLine();
 
-		query = "INSERT INTO Pliot (id, fullname, nationality) VALUES (' " + fullName + " '),"
-		esql.executeUpdate(query);
+			query = "INSERT INTO Pliot (id, fullname, nationality) VALUES (' "  + pilotID + "' ),"  + " (' " + fullName + "' )," + " (' " + national + "' );" ;
+			esql.executeUpdate(query);
+		}
+		catch(Exception e){
+			System.err.println(e.getMessage());
+		}
+
 	}
 
 	public static void AddFlight(DBproject esql) {//3
@@ -336,16 +350,60 @@ public class DBproject{
 	}
 
 	public static void AddTechnician(DBproject esql) {//4
+		try{
 		String query;
-		
+
+		System.out.println("Please input an integer for the technician's ID: ");
+		int techID = Integer.parseInt(in.readLine());
+
+
 		System.out.println("Please input the technician's full name: ");
-		string fullName = in.readLine();
+		String fullName = in.readLine();
 		query = "INSERT INTO Technician (id, fullname, nationality) VALUES (' "  + techID + "' ),"  + " (' " + fullName + "' );" ;
+		System.out.println("Please input the technician's full name: ");
+		String full_Name = in.readLine(); //fullName is defined in addPilot, so full_Name used here
+		query = "INSERT INTO Technician (id, fullname, nationality) VALUES (' "  + techID + "' ),"  + " (' " + full_Name + "' );" ;
 		esql.executeUpdate(query);
+		}
+		catch(Exception e){
+			System.err.println(e.getMessage());
+		}
 	}
 
 	public static void BookFlight(DBproject esql) {//5
 		// Given a customer and a flight that he/she wants to book, add a reservation to the DB
+		try{
+			String query;
+			System.out.println("Please input a customer ID: ");
+			int customerID = Integer.parseInt(in.readLine());
+				
+			System.out.println("Please input a flight number: ");
+			int flightNum = Integer.parseInt(in.readLine());
+		
+				
+			int reservationNum = esql.getCurrSeqVal("reservation");
+			//Get the number of seats sold
+			query = String.format("SELECT F.num_sold FROM Flight F WHERE F.flight_num = %d LIMIT 1", flightNum);
+			int sold_seats  = Integer.parseInt(esql.executeQueryAndReturnResult(query).get(0).get(0));
+			//Get the total number of seats on plane
+			query = String.format("Select P.num_seats FROM Plane P WHERE P.ID = Flightinfo.plane_ID AND F.flight_num = %d LIMIT 1", flightNum);
+			int total_seats = Integer.parseInt(esql.executeQueryAndReturnResult(query).get(0).get(0));
+	
+			if(total_seats - sold_seats > 0)
+			{
+				query = "INSERT INTO Reservation(Rnum, customer_ID, flight_ID, status) VALUES (' " + reservationNum + "')," + "(' " + customerID + "')" + "('" + flightNum + "')" + "('R');";
+				System.out.println("Successfully regirstered");
+			}
+			else
+			{
+				query = "INSERT INTO Reservation(Rnum, customer_ID, flight_ID, status) VALUES (' " + reservationNum + "')," + "(' " + customerID + "')" + "('" + flightNum + "')" + "('W');";
+			}
+			esql.executeUpdate(query);
+		}
+		catch(Exception e){
+			System.err.println(e.getMessage());
+		}
+
 	}
 
 	public static void ListNumberOfAvailableSeats(DBproject esql) {//6
@@ -361,12 +419,16 @@ public class DBproject{
 	}
 	
 	public static void FindPassengersCountWithStatus(DBproject esql) {//9
+		try{
 		String query;
 		System.out.println("Please input the passenger status code (W, C, or R): ");
-		string inputs = in.readLine();
+		String inputs = in.readLine();
 		query = "SELECT COUNT(R.status) FROM Reservation R, Customer C WHERE (R.cid = C.cid AND R.status = " + inputs + " \" );";
 		esql.executeQueryAndPrintResult(query);
-
+		}
+		catch(Exception e){
+		System.err.println(e.getMessage());
+		}
 		// Find how many passengers there are with a status (i.e. W,C,R) and list that number.
 	}
 }
