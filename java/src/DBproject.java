@@ -377,7 +377,7 @@ public class DBproject{
 		System.out.println("Please input the technicians nationality: ");
 		String nationality = in.readLine();
 
-		query = String.format("INSERT INTO Technician (id, fullname, nationality) VALUES (%d, %s, %s);", techID, full_name, nationality);
+		query = String.format("INSERT INTO Technician (id, fullname, nationality) VALUES (%d, %s, %s);", techID, full_Name, nationality);
 //		query = "INSERT INTO Technician (id, fullname, nationality) VALUES (' "  + techID + "' ),"  + " (' " + full_Name + "' );" ;
 		esql.executeUpdate(query);
 		}
