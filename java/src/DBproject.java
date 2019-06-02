@@ -347,6 +347,20 @@ public class DBproject{
 
 	public static void AddFlight(DBproject esql) {//3
 		// Given a pilot, plane and flight, adds a flight in the DB
+		try{
+			System.out.println("Please input a Pilot ID: ");
+			int pilot_id = Integer.parseInt(in.readLine());
+			System.out.println("Please enter a plane ID: ");
+			int plane_id = Integer.parseInt(in.readLine());
+			System.out.println("Please enter a plane ID: ");
+			int flight_id = Integer.parseInt(in.readLine());
+			
+			String query = String.format("INSERT INTO FlightInfo(flight_id, pilot_id, plane_id) VALUES ('%d', '%d', '%d');", flight_id, pilot_id, plane_id);
+			esql.executeUpdate(query);
+		}
+		catch(Exception e){
+			System.err.println(e.getMessage());
+		}
 	}
 
 	public static void AddTechnician(DBproject esql) {//4
