@@ -327,8 +327,6 @@ public class DBproject{
 	public static void AddPilot(DBproject esql) {//2
 		try{
 			String query;
-			System.out.println("Please input an integer for the pilot's ID: ");
-			int pilotID = Integer.parseInt(in.readLine());
 	
 			System.out.println("Please input the pilot's full name: ");
 			String fullName = in.readLine();
@@ -336,9 +334,11 @@ public class DBproject{
 
 			System.out.println("Please input the pilot's nationality: ");
 			String national = in.readLine();
-
-			query = "INSERT INTO Pliot (id, fullname, nationality) VALUES (' "  + pilotID + "' ),"  + " (' " + fullName + "' )," + " (' " + national + "' );" ;
+			query = String.format("INSERT INTO Pilot(id, fullname, nationality) VALUES ( (nextval('id_seq_pilot')), '%s', '%s');", fullName, national);
+			
 			esql.executeUpdate(query);
+			esql.executeQueryAndPrintResult("SELECT * FROM Pilot;"); 
+
 		}
 		catch(Exception e){
 			System.err.println(e.getMessage());
@@ -349,13 +349,31 @@ public class DBproject{
 	public static void AddFlight(DBproject esql) {//3
 		// Given a pilot, plane and flight, adds a flight in the DB
 		try{
+			System.out.println("Please input the flight cost: ");
+			int cost = Integer.parseInt(in.readLine());
+			System.out.println("Please input the number of stops: ");
+			int num_stops = Integer.parseInt(in.readLine());
+			System.out.println("Please enter the depature date: ");
+			String dep_date = in.readLine();
+			System.out.println("Please enter the arrival date: ");
+			String arrive_date = in.readLine();
+			System.out.println("Please enter the depature airport code: ");
+			String dep_code = in.readLine();
+			System.out.println("Please enter the arrival airport code: ");
+			String arrive_code = in.readLine();
+
+
+			string query2 = String.format("INSERT INTO Flight( fnum, cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_airport, departure_airport) VALUES ((nextval('id_seq_flight')),'%d', 0, '%d', '%s', '%s', '%s', '%s');", cost, num_stops, plane_id, dep_date, arrive_date, dep_code, arrive_code);
+
+			esql.executeUpdate(query2);
+
 			System.out.println("Please input a Pilot ID: ");
 			int pilot_id = Integer.parseInt(in.readLine());
 			System.out.println("Please enter a plane ID: ");
 			int plane_id = Integer.parseInt(in.readLine());
-			System.out.println("Please enter a plane ID: ");
+			System.out.println("Please enter a flight ID: ");
 			int flight_id = Integer.parseInt(in.readLine());
-			
+
 			String query = String.format("INSERT INTO FlightInfo(flight_id, pilot_id, plane_id) VALUES ('%d', '%d', '%d');", flight_id, pilot_id, plane_id);
 			esql.executeUpdate(query);
 		}
@@ -368,16 +386,14 @@ public class DBproject{
 		try{
 		String query;
 
-		System.out.println("Please input an integer for the technician's ID: ");
-		int techID = Integer.parseInt(in.readLine());
-
 		System.out.println("Please input the technician's full name: ");
 		String full_Name = in.readLine(); //fullName is defined in addPilot, so full_Name used here
 		
 
-		query = String.format("INSERT INTO Technician (id, full_name) VALUES (%d, ('%s'));", techID, full_Name);
-//		query = "INSERT INTO Technician (id, fullname, nationality) VALUES (' "  + techID + "' ),"  + " (' " + full_Name + "' );" ;
+		query = String.format("INSERT INTO Technician (id, full_name) VALUES ( (nextval('id_seq_pilot')) , ('%s'));", full_Name);
 		esql.executeUpdate(query);
+		esql.executeQueryAndPrintResult("SELECT * FROM Technician;"); 
+
 		}
 		catch(Exception e){
 			System.err.println(e.getMessage());
