@@ -302,7 +302,6 @@ public class DBproject{
 	public static void AddPlane(DBproject esql) {//1
 		try{
 			String query;
-			System.out.println(esql.getCurrSeqVal("seq"));
 			System.out.println("Please input a plane make no longer than 32 characters: ");
 			String planeMake = in.readLine();
 	
@@ -316,7 +315,10 @@ public class DBproject{
 			int planeSeats = Integer.parseInt(in.readLine());
 
 			query = "INSERT INTO Plane (id, make, model, age, seats) VALUES (' " + planeMake + "' )," + " (' " + planeModel + "' ), " + " (' " + planeAge + " ' ), " + " (' " + planeSeats + " ' );";
+			System.out.println(esql.getCurrSeqVal(query));
 
+			System.out.println("Please input an integer for the plane's age: ");
+			int planeAge = Integer.parseInt(in.readLine());
 			esql.executeUpdate(query);
 		}
 		catch(Exception e){
