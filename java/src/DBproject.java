@@ -302,8 +302,7 @@ public class DBproject{
 	public static void AddPlane(DBproject esql) {//1
 		try{
 			String query;
-			int currentID = getCurrSeqVal(query);
-			System.out.println(currentID);
+			System.out.println(esql.getCurrSeqVal("seq"));
 			System.out.println("Please input a plane make no longer than 32 characters: ");
 			String planeMake = in.readLine();
 	
