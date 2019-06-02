@@ -1,10 +1,15 @@
+DROP TRIGGER IF EXISTS populate ON Pilot;
+DROP TRIGGER IF EXISTS populate1 ON Plane;
+DROP TRIGGER IF EXISTS populate2 ON Flight;
+
+
 CREATE LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION id_inc_pilot()
 RETURNS "trigger" AS 
 $BODY$
 BEGIN
-New.part_number = nextval('id_seq_pilot');
+New.id = nextval('id_seq_pilot');
 Return NEW;
 END;
 $BODY$
@@ -21,7 +26,7 @@ CREATE OR REPLACE FUNCTION id_inc_plane()
 RETURNS "trigger" AS 
 $BODY$
 BEGIN
-New.part_number = nextval('id_seq_plane');
+New.id = nextval('id_seq_plane');
 Return NEW;
 END;
 $BODY$
@@ -37,7 +42,7 @@ CREATE OR REPLACE FUNCTION id_inc_flight()
 RETURNS "trigger" AS 
 $BODY$
 BEGIN
-New.part_number = nextval('id_seq_flight');
+New.fnum = nextval('id_seq_flight');
 Return NEW;
 END;
 $BODY$
