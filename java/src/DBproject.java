@@ -406,7 +406,7 @@ public class DBproject{
 		try{
 			String query;
 			System.out.println("Please input a flight number: ");
-			int flight_number = Integer.parseInt(in.readline());
+			int flight_number = Integer.parseInt(in.readLine());
 			
 			System.out.println("Please input a date (yyyy-mm-dd): ");
 			String date_input = in.readLine();
@@ -430,7 +430,7 @@ public class DBproject{
 		// Count number of repairs per planes and list them in descending order
 		try{
 			String query = "SELECT P.id, COUNT(R.rid) FROM Plane P, Repairs R WHERE P.id = R.plane_id GROUP BY P.id ORDER BY COUNT DESC";
-			esql.ExecuteQueryAndPrintResult(query);
+			esql.executeQueryAndPrintResult(query);
 		}
 		catch(Exception e){
 			System.err.println(e.getMessage());
@@ -440,8 +440,8 @@ public class DBproject{
 	public static void ListTotalNumberOfRepairsPerYear(DBproject esql) {//8
 		// Count repairs per year and list them in ascending order
 		try{
-			query = "SELECT EXTRACT(YEAR FROM R.repair_date) as \"repairYear\", COUNT(R.rid) FROM Repairs R GROUP BY repairYear ORDER BY COUNT ASC";
-			esql.ExecuteQueryAndPrintResult(query);
+			String query = "SELECT EXTRACT(YEAR FROM R.repair_date) as \"repairYear\", COUNT(R.rid) FROM Repairs R GROUP BY repairYear ORDER BY COUNT ASC";
+			esql.executeQueryAndPrintResult(query);
 		}
 		catch(Exception e){
 			System.err.println(e.getMessage());
