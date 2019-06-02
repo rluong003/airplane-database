@@ -370,9 +370,15 @@ public class DBproject{
 
 		System.out.println("Please input an integer for the technician's ID: ");
 		int techID = Integer.parseInt(in.readLine());
+
 		System.out.println("Please input the technician's full name: ");
 		String full_Name = in.readLine(); //fullName is defined in addPilot, so full_Name used here
-		query = "INSERT INTO Technician (id, fullname, nationality) VALUES (' "  + techID + "' ),"  + " (' " + full_Name + "' );" ;
+		
+		System.out.println("Please input the technicians nationality: ");
+		String nationality = in.readLine();
+
+		query = String.format("INSERT INTO Technician (id, fullname, nationality) VALUES (%d, %s, %s);", techID, full_name, nationality);
+//		query = "INSERT INTO Technician (id, fullname, nationality) VALUES (' "  + techID + "' ),"  + " (' " + full_Name + "' );" ;
 		esql.executeUpdate(query);
 		}
 		catch(Exception e){
@@ -401,12 +407,15 @@ public class DBproject{
 	
 			if(total_seats - sold_seats > 0)
 			{
-				query = "INSERT INTO Reservation(rnum, cid, fid, status) VALUES (' " + reservationNum + "')," + "(' " + customerID + "')" + "('" + flightNum + "')" + "('R');";
-				System.out.println("Successfully regirstered");
+				query = String.format("INSERT INTO Reservation(rnum, cid, fid, status) VALUES ((nextval('id_seq_reservation')) , %d, %d, 'R');", customerID, flightNum);
+
+//				query = "INSERT INTO Reservation(rnum, cid, fid, status) VALUES (' " + reservationNum + "')," + "(' " + customerID + "')" + "('" + flightNum + "')" + "('R');";
+//				System.out.println("Successfully regirstered");
 			}
 			else
 			{
-				query = "INSERT INTO Reservation(rnum, cid, fid, status) VALUES (' " + reservationNum + "')," + "(' " + customerID + "')" + "('" + flightNum + "')" + "('W');";
+				query = String.format("INSERT INTO Reservation(rnum, cid, fid, status) VALUES ((nextval('id_seq_reservation')) , %d, %d, 'W');", customerID, flightNum);
+//				query = "INSERT INTO Reservation(rnum, cid, fid, status) VALUES (' " + reservationNum + "')," + "(' " + customerID + "')" + "('" + flightNum + "')" + "('W');";
 			}
 			esql.executeUpdate(query);
 		}
