@@ -427,13 +427,19 @@ public class DBproject{
 			String date_input = in.readLine();
 
 			
-			query = String.format("SELECT F.num_sold FROM Flight F WHERE F.flight_num = %d LIMIT 1", flight_number);
+			query = String.format("SELECT F.num_sold FROM Flight F WHERE F.fnum = %d LIMIT 1", flight_number);
 			int sold_seats = Integer.parseInt(esql.executeQueryAndReturnResult(query).get(0).get(0));
 			
-			query = String.format("SELECT P.num_seats FROM Plane P, Flightinfo FI  WHERE P.id = FI.plane_id AND FI.flight_num = %d", flight_number);
+			query = String.format("SELECT P.seats FROM Plane P, Flightinfo FI  WHERE P.id = FI.plane_id AND FI.flight_id = %d", flight_number);
 			int numberOfSeats = Integer.parseInt(esql.executeQueryAndReturnResult(query).get(0).get(0));
 			
-			String output = String.format("There are %d seats on flight %d\n", sold_seats - numberOfSeats, flight_number);
+			numberOfSeats = numberOfSeats - sold_seats;
+			String output;
+			if(numberOfSeats > 0)
+				output = String.format("There are %d seats on flight %d\n", numberOfSeats- sold_seats, flight_number);
+			else
+				 output = String.format("All seats on flight %d are sold\n", flight_number);
+		
 			System.out.println(output);
 		}
 		catch(Exception e){
@@ -455,7 +461,7 @@ public class DBproject{
 	public static void ListTotalNumberOfRepairsPerYear(DBproject esql) {//8
 		// Count repairs per year and list them in ascending order
 		try{
-			String query = "SELECT EXTRACT(YEAR FROM R.repair_date) as \"repairYear\", COUNT(R.rid) FROM Repairs R GROUP BY repairYear ORDER BY COUNT ASC";
+			String query = "SELECT EXTRACT(YEAR FROM R.repair_date) as \"repairYear\", COUNT(R.rid) FROM Repairs R GROUP BY \"repairYear\" ORDER BY COUNT ASC";
 			esql.executeQueryAndPrintResult(query);
 		}
 		catch(Exception e){
@@ -468,7 +474,8 @@ public class DBproject{
 		String query;
 		System.out.println("Please input the passenger status code (W, C, or R): ");
 		String inputs = in.readLine();
-		query = "SELECT COUNT(R.status) FROM Reservation R, Customer C WHERE (R.cid = C.cid AND R.status = " + inputs + " \" );";
+		query = String.format("SELECT COUNT(R.status) FROM Reservation R, Customer C WHERE (R.status = '%s' AND R.cid = C.id);", inputs);
+		//query = "SELECT COUNT(R.status) FROM Reservation R, Customer C WHERE (R.cid = C.id AND R.status = " + inputs + " \" );";
 		esql.executeQueryAndPrintResult(query);
 		}
 		catch(Exception e){
