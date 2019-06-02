@@ -351,21 +351,22 @@ public class DBproject{
 		try{
 			System.out.println("Please input the flight cost: ");
 			int cost = Integer.parseInt(in.readLine());
+			
 			System.out.println("Please input the number of stops: ");
 			int num_stops = Integer.parseInt(in.readLine());
+			
 			System.out.println("Please enter the depature date: ");
 			String dep_date = in.readLine();
+			
 			System.out.println("Please enter the arrival date: ");
 			String arrive_date = in.readLine();
+			
 			System.out.println("Please enter the depature airport code: ");
 			String dep_code = in.readLine();
+			
 			System.out.println("Please enter the arrival airport code: ");
 			String arrive_code = in.readLine();
 
-
-			string query2 = String.format("INSERT INTO Flight( fnum, cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_airport, departure_airport) VALUES ((nextval('id_seq_flight')),'%d', 0, '%d', '%s', '%s', '%s', '%s');", cost, num_stops, plane_id, dep_date, arrive_date, dep_code, arrive_code);
-
-			esql.executeUpdate(query2);
 
 			System.out.println("Please input a Pilot ID: ");
 			int pilot_id = Integer.parseInt(in.readLine());
@@ -373,6 +374,12 @@ public class DBproject{
 			int plane_id = Integer.parseInt(in.readLine());
 			System.out.println("Please enter a flight ID: ");
 			int flight_id = Integer.parseInt(in.readLine());
+
+			
+                        String query2 = String.format("INSERT INTO Flight( fnum, cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_airport, departure_airport) VALUES ((nextval('id_seq_flight')),'%d', 0, '%d', '%s', '%s', '%s', '%s');", cost, num_stops, plane_id, dep_date, arrive_date, dep_code, arrive_code);
+
+                        esql.executeUpdate(query2);
+
 
 			String query = String.format("INSERT INTO FlightInfo(flight_id, pilot_id, plane_id) VALUES ('%d', '%d', '%d');", flight_id, pilot_id, plane_id);
 			esql.executeUpdate(query);
@@ -423,13 +430,10 @@ public class DBproject{
 			{
 				query = String.format("INSERT INTO Reservation(rnum, cid, fid, status) VALUES ((nextval('id_seq_reservation')) , %d, %d, 'R');", customerID, flightNum);
 
-//				query = "INSERT INTO Reservation(rnum, cid, fid, status) VALUES (' " + reservationNum + "')," + "(' " + customerID + "')" + "('" + flightNum + "')" + "('R');";
-//				System.out.println("Successfully regirstered");
 			}
 			else
 			{
 				query = String.format("INSERT INTO Reservation(rnum, cid, fid, status) VALUES ((nextval('id_seq_reservation')) , %d, %d, 'W');", customerID, flightNum);
-//				query = "INSERT INTO Reservation(rnum, cid, fid, status) VALUES (' " + reservationNum + "')," + "(' " + customerID + "')" + "('" + flightNum + "')" + "('W');";
 			}
 			esql.executeUpdate(query);
 		}
