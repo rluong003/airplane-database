@@ -374,10 +374,8 @@ public class DBproject{
 		System.out.println("Please input the technician's full name: ");
 		String full_Name = in.readLine(); //fullName is defined in addPilot, so full_Name used here
 		
-		System.out.println("Please input the technicians nationality: ");
-		String nationality = in.readLine();
 
-		query = String.format("INSERT INTO Technician (id, fullname, nationality) VALUES (%d, %s, %s);", techID, full_Name, nationality);
+		query = String.format("INSERT INTO Technician (id, full_name) VALUES (%d, ('%s'));", techID, full_Name);
 //		query = "INSERT INTO Technician (id, fullname, nationality) VALUES (' "  + techID + "' ),"  + " (' " + full_Name + "' );" ;
 		esql.executeUpdate(query);
 		}
