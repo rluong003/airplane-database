@@ -423,7 +423,7 @@ public class DBproject{
 			query = String.format("SELECT F.num_sold FROM Flight F WHERE F.fnum = %d LIMIT 1 ", flightNum);
 			int sold_seats  = Integer.parseInt(esql.executeQueryAndReturnResult(query).get(0).get(0));
 			//Get the total number of seats on plane
-			query = String.format("Select P.seats FROM Plane P, Flightinfo FI  WHERE P.id = FI.plane_id AND FI.fnum = %d LIMIT 1", flightNum);
+			query = String.format("Select P.seats FROM Plane P, Flightinfo FI  WHERE P.id = FI.plane_id AND FI.flight_id = %d LIMIT 1", flightNum);
 			int total_seats = Integer.parseInt(esql.executeQueryAndReturnResult(query).get(0).get(0));
 	
 			if(total_seats - sold_seats > 0)
@@ -435,6 +435,8 @@ public class DBproject{
 			{
 				query = String.format("INSERT INTO Reservation(rnum, cid, fid, status) VALUES ((nextval('id_seq_reservation')) , %d, %d, 'W');", customerID, flightNum);
 			}
+			esql.executeUpdate(query);
+			query = String.format("UPDATE Flights SET num_sold = num_sold + 1 WHERE fnum = %d", flightNum);
 			esql.executeUpdate(query);
 		}
 		catch(Exception e){
