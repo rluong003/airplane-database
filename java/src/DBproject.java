@@ -434,7 +434,11 @@ public class DBproject{
 				query = String.format("INSERT INTO Reservation(rnum, cid, fid, status) VALUES ((nextval('id_seq_reservation')) , %d, %d, 'W');", customerID, flightNum);
 			}
 			esql.executeUpdate(query);
-			query = String.format("UPDATE Flights SET num_sold = num_sold + 1 WHERE fnum = %d", flightNum);
+
+			System.out.println("Your new reservation: ");
+			query = String.format("SELECT * FROM Reservation WHERE cid = %d AND fid = %d", customerID, flightNum);
+			esql.executeQueryAndPrintResult(query); 
+			query = String.format("UPDATE Flight SET num_sold = num_sold + 1 WHERE fnum = %d", flightNum);
 			esql.executeUpdate(query);
 		}
 		catch(Exception e){
@@ -454,7 +458,7 @@ public class DBproject{
 			String date_input = in.readLine();
 
 			
-			query = String.format("SELECT F.num_sold FROM Flight F WHERE F.fnum = %d LIMIT 1", flight_number);
+			query = String.format("SELECT F.num_sold FROM Flight F WHERE F.fnum = %d", flight_number);
 			int sold_seats = Integer.parseInt(esql.executeQueryAndReturnResult(query).get(0).get(0));
 			
 			query = String.format("SELECT P.seats FROM Plane P, Flightinfo FI  WHERE P.id = FI.plane_id AND FI.flight_id = %d", flight_number);
