@@ -355,16 +355,16 @@ public class DBproject{
 			System.out.println("Please input the number of stops: ");
 			int num_stops = Integer.parseInt(in.readLine());
 			
-			System.out.println("Please enter the depature date: ");
+			System.out.println("Please enter the depature date(YYYY-MM-DD): ");
 			String dep_date = in.readLine();
 			
-			System.out.println("Please enter the arrival date: ");
+			System.out.println("Please enter the arrival date(YYYY-MM-DD): ");
 			String arrive_date = in.readLine();
 			
-			System.out.println("Please enter the depature airport code: ");
+			System.out.println("Please enter the depature airport code(ABCDE): ");
 			String dep_code = in.readLine();
 			
-			System.out.println("Please enter the arrival airport code: ");
+			System.out.println("Please enter the arrival airport code(ABCDE): ");
 			String arrive_code = in.readLine();
 
 
