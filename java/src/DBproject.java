@@ -438,6 +438,17 @@ public class DBproject{
 			}
 			esql.executeUpdate(query);
 
+                        query = String.format("SELECT F.num_sold  FROM Flight F WHERE fnum = %d", flightNum);
+                        esql.executeQueryAndPrintResult(query);
+
+
+			query = String.format("UPDATE Flight SET num_sold = num_sold + 1 WHERE fnum = %d", flightNum);
+			esql.executeUpdate(query);
+
+			query = String.format("SELECT F.num_sold  FROM Flight  F WHERE fnum = %d", flightNum);
+			esql.executeQueryAndPrintResult(query);
+
+
 			System.out.println("Your new reservation: ");
 			query = String.format("SELECT * FROM Reservation WHERE cid = %d AND fid = %d", customerID, flightNum);
 			esql.executeQueryAndPrintResult(query); 
