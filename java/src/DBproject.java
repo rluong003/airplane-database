@@ -376,7 +376,7 @@ public class DBproject{
 			int flight_id = Integer.parseInt(in.readLine());
 
 			
-                        String query2 = String.format("INSERT INTO Flight( fnum, cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_airport, departure_airport) VALUES ((nextval('id_seq_flight')),'%d', 0, '%d', '%s', '%s', '%s', '%s');", cost, num_stops, plane_id, dep_date, arrive_date, dep_code, arrive_code);
+            String query2 = String.format("INSERT INTO Flight( fnum, cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_airport, departure_airport) VALUES ((nextval('id_seq_flight')),'%d', 0, '%d', '%s', '%s', '%s', '%s');", cost, num_stops, plane_id, dep_date, arrive_date, dep_code, arrive_code);
 
                         esql.executeUpdate(query2);
 
@@ -417,8 +417,6 @@ public class DBproject{
 			System.out.println("Please input a flight number: ");
 			int flightNum = Integer.parseInt(in.readLine());
 		
-				
-			int reservationNum = esql.getCurrSeqVal("reservation");
 			//Get the number of seats sold
 			query = String.format("SELECT F.num_sold FROM Flight F WHERE F.fnum = %d LIMIT 1 ", flightNum);
 			int sold_seats  = Integer.parseInt(esql.executeQueryAndReturnResult(query).get(0).get(0));
