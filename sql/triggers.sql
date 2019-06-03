@@ -59,7 +59,7 @@ CREATE OR REPLACE FUNCTION id_inc_reservation()
 RETURNS "trigger" AS
 $BODY$
 BEGIN
-New.rid = nextval('id_seq_reservation');
+New.rnum = nextval('id_seq_reservation');
 Return NEW;
 END;
 $BODY$
