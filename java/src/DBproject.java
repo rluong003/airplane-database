@@ -370,19 +370,22 @@ public class DBproject{
 
 			System.out.println("Please input a Pilot ID: ");
 			int pilot_id = Integer.parseInt(in.readLine());
+
 			System.out.println("Please enter a plane ID: ");
 			int plane_id = Integer.parseInt(in.readLine());
+
 			System.out.println("Please enter a flight ID: ");
 			int flight_id = Integer.parseInt(in.readLine());
 
 			
-            String query2 = String.format("INSERT INTO Flight( fnum, cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_airport, departure_airport) VALUES ((nextval('id_seq_flight')),'%d', 0, '%d', '%s', '%s', '%s', '%s');", cost, num_stops, plane_id, dep_date, arrive_date, dep_code, arrive_code);
+            String query2 = String.format("INSERT INTO Flight( fnum, cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_airport, departure_airport) VALUES ( (nextval('id_seq_flight')) ,'%d','0','%d', '%s', '%s', '%s', '%s');", cost, num_stops, dep_date, arrive_date, dep_code, arrive_code);
 
                         esql.executeUpdate(query2);
 
 
-			String query = String.format("INSERT INTO FlightInfo(flight_id, pilot_id, plane_id) VALUES ('%d', '%d', '%d');", flight_id, pilot_id, plane_id);
+			String query = String.format("INSERT INTO FlightInfo(fiid, flight_id, pilot_id, plane_id) VALUES ( (nextval('id_seq_finfo')), '%d', '%d', '%d');", flight_id, pilot_id, plane_id);
 			esql.executeUpdate(query);
+			esql.executeQueryAndPrintResult("SELECT * FROM FlightInfo;"); 
 		}
 		catch(Exception e){
 			System.err.println(e.getMessage());
@@ -438,8 +441,6 @@ public class DBproject{
 			System.out.println("Your new reservation: ");
 			query = String.format("SELECT * FROM Reservation WHERE cid = %d AND fid = %d", customerID, flightNum);
 			esql.executeQueryAndPrintResult(query); 
-			query = String.format("UPDATE Flight SET num_sold = num_sold + 1 WHERE fnum = %d", flightNum);
-			esql.executeUpdate(query);
 		}
 		catch(Exception e){
 			System.err.println(e.getMessage());
