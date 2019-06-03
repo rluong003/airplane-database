@@ -3,6 +3,7 @@ DROP TRIGGER IF EXISTS populate1 ON Plane;
 DROP TRIGGER IF EXISTS populate2 ON Flight;
 DROP TRIGGER IF EXISTS populate3 ON Reservation;
 DROP TRIGGER IF EXISTS populate4 ON Technician;
+DROP TRIGGER IF EXISTS populate5 ON FlightInfo;
 
 CREATE LANGUAGE plpgsql;
 
@@ -59,7 +60,7 @@ CREATE OR REPLACE FUNCTION id_inc_reservation()
 RETURNS "trigger" AS
 $BODY$
 BEGIN
-New.rid = nextval('id_seq_reservation');
+New.rnum = nextval('id_seq_reservation');
 Return NEW;
 END;
 $BODY$
@@ -83,5 +84,20 @@ CREATE TRIGGER populate4 BEFORE INSERT
 ON Technician FOR EACH ROW
 EXECUTE PROCEDURE id_inc_tech();
 
+
+CREATE OR REPLACE FUNCTION id_inc_finfo()
+RETURNS "trigger" AS 
+$BODY$
+BEGIN
+New.fiid = nextval('id_seq_finfo');
+Return NEW;
+END;
+$BODY$
+LANGUAGE 'plpgsql' VOLATILE;
+
+
+CREATE TRIGGER populate5 BEFORE INSERT
+ON FlightInfo FOR EACH ROW
+EXECUTE PROCEDURE id_inc_finfo();
 
 
