@@ -1,5 +1,0 @@
-/*
-indexes for faster queries
-
-
-*/
