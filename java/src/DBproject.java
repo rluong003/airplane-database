@@ -465,11 +465,7 @@ public class DBproject{
 			String query;
 			System.out.println("Please input a flight number: ");
 			int flight_number = Integer.parseInt(in.readLine());
-			
-			System.out.println("Please input a date (yyyy-mm-dd): ");
-			String date_input = in.readLine();
-
-			
+				
 			query = String.format("SELECT F.num_sold FROM Flight F WHERE F.fnum = %d", flight_number);
 			int sold_seats = Integer.parseInt(esql.executeQueryAndReturnResult(query).get(0).get(0));
 			
