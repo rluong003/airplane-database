@@ -474,7 +474,7 @@ public class DBproject{
 			numberOfSeats = numberOfSeats - sold_seats;
 			String output;
 			if(numberOfSeats > 0)
-				output = String.format("There are %d seats on flight %d\n", numberOfSeats- sold_seats, flight_number);
+				output = String.format("There are %d seats on flight %d\n", numberOfSeats, flight_number);
 			else
 				 output = String.format("All seats on flight %d are sold\n", flight_number);
 		
